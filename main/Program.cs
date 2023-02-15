@@ -1,6 +1,6 @@
 ﻿Console.WriteLine("Enter an example for calculation:");
 var variable = Console.ReadLine();
-var operators = new char[] { '+', '-', '/', '*' };
+var operators = new char[] { '+', '-', '/', '*', '^' };
 List<string> operations = new List<string>();
 Stack<double> stack = new Stack<double>();
 Queue<char?> queue = new Queue<char?>();
@@ -25,7 +25,7 @@ if (variable != null)
             buff = "";
             if (oper is not null)
             {
-                if (oper is '/' or '*')
+                if (oper is '/' or '*' or '^')
                 {
                     operations.Add(oper.ToString());
                 }
@@ -84,6 +84,11 @@ foreach (var element in operations)
         {
             var divide = num2 / num1;
             stack.Push(divide);
+        }
+        if (element == "^")
+        {
+            var expo = Math.Pow(num2, num1);
+            stack.Push(expo);
         }
     }
 }
