@@ -1,9 +1,9 @@
 ﻿Console.WriteLine("Enter an example for calculation:");
 var variable = Console.ReadLine();
 var operators = new char[] { '+', '-', '/', '*', '^', '(', ')' };
-List<string> operations = new List<string>();
 Stack<double> stack = new Stack<double>();
 Stack<char?> stackOperators = new Stack<char?>();
+Queue<string> queue = new Queue<string>();
 bool check = false;
 
 var buff = "";
@@ -18,7 +18,7 @@ if (variable != null)
         }
         else if (operators.Contains(ch))
         {
-            operations.Add(buff);
+            queue.Enqueue(buff);
             buff = "";
             if (ch is '^')
             {
@@ -26,10 +26,10 @@ if (variable != null)
             }
             else if ((oper is '*' or '/' or '^') && stackOperators.Count > 0 && (ch != '(') && (check == false))
             {
-                operations.Add(stackOperators.Pop().ToString());
+                queue.Enqueue(stackOperators.Pop().ToString());
                 if ((stackOperators.Contains('+') || stackOperators.Contains('-')) && (ch is '+' or '-'))
                 {
-                    operations.Add(stackOperators.Pop().ToString());
+                    queue.Enqueue(stackOperators.Pop().ToString());
                     stackOperators.Push(ch); 
                 }
                 else
@@ -40,7 +40,7 @@ if (variable != null)
             
             else if ((stackOperators.Contains('+') || stackOperators.Contains('-')) && (ch is '+' or '-') && (check == false))
             {
-                operations.Add(stackOperators.Pop().ToString());
+                queue.Enqueue(stackOperators.Pop().ToString());
                 stackOperators.Push(ch);
             }
             else if (ch == '(')
@@ -52,7 +52,7 @@ if (variable != null)
                 check = false;
                 while (stackOperators.Count > 0)
                 {
-                    operations.Add(stackOperators.Pop().ToString());
+                    queue.Enqueue(stackOperators.Pop().ToString());
                 }
             }
             else if (ch is not '(' or ')')
@@ -65,70 +65,66 @@ if (variable != null)
 
 if (buff != "")
 {
-    operations.Add(buff);
+    queue.Enqueue(buff);
     if (stackOperators.Count == 0)
     {
-        operations.Add(oper.ToString());
+        queue.Enqueue(oper.ToString());
     }
 }
 
 while (stackOperators.Count > 0)
 {
-    operations.Add(stackOperators.Pop().ToString());
+    queue.Enqueue(stackOperators.Pop().ToString());
 }
-
-string itemToRemove = "";
-while (operations.Contains(""))
-{
-    operations.Remove(itemToRemove);
-}
-
 Console.WriteLine("RPL:");
-Console.WriteLine(string.Join(" ", operations));
-
-
-
-foreach (var element in operations)
+Console.WriteLine(string.Join(" ", queue));
+foreach (var element in queue)
 {
-    if (element != "+" && element != "-" && element != "/" && element != "*" && element != "^")
+    if (element != "")
     {
-        var db = Convert.ToDouble(element);
-        stack.Push(db);
+        if (element != "+" && element != "-" && element != "/" && element != "*" && element != "^")
+        {
+            var db = Convert.ToDouble(element);
+            stack.Push(db);
+        }
+        else
+        {
+            var num1 = stack.Pop();
+            var num2 = stack.Pop();
+            if (element == "+")
+            {
+                var sum = num2 + num1;
+                stack.Push(sum);
+            }
+
+            if (element == "-")
+            {
+                var minus = num2 - num1;
+                stack.Push(minus);
+            }
+
+            if (element == "*")
+            {
+                var multiply = num2 * num1;
+                stack.Push(multiply);
+            }
+
+            if (element == "/")
+            {
+                var divide = num2 / num1;
+                stack.Push(divide);
+            }
+            if (element == "^")
+            {
+                var expo = Math.Pow(num2, num1);
+                stack.Push(expo);
+            }
+        }
     }
     else
     {
-        var num1 = stack.Pop();
-        var num2 = stack.Pop();
-        if (element == "+")
-        {
-            var sum = num2 + num1;
-            stack.Push(sum);
-        }
-
-        if (element == "-")
-        {
-            var minus = num2 - num1;
-            stack.Push(minus);
-        }
-
-        if (element == "*")
-        {
-            var multiply = num2 * num1;
-            stack.Push(multiply);
-        }
-
-        if (element == "/")
-        {
-            var divide = num2 / num1;
-            stack.Push(divide);
-        }
-        if (element == "^")
-        {
-            var expo = Math.Pow(num2, num1);
-            stack.Push(expo);
-        }
+        continue;
     }
 }
-
 Console.WriteLine("RESULT:");
 Console.WriteLine(stack.Pop());
