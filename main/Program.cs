@@ -2,8 +2,10 @@
 var variable = Console.ReadLine();
 var operators = new char[] { '+', '-', '/', '*', '^' };
 List<string> operations = new List<string>();
-Stack<double> stack = new Stack<double>();
-Queue<char?> queue = new Queue<char?>();
+Stack<char?> stack = new Stack<char?>();
+Queue<double> queue = new Queue<double>();
+Stack<char?> stack1 = new Stack<char?>();
+
 
 var buff = "";
 char? oper = null;
@@ -11,30 +13,108 @@ char? oper = null;
 if (variable != null)
     foreach (var ch in variable)
     {
-        if (char.IsDigit(ch))
+        if (stack1.Count == 0)
         {
-            buff += ch;
-            if ((queue.Contains('-') || queue.Contains('+')) && (oper is '+' or '-'))
+            if (char.IsDigit(ch))
             {
-                operations.Add(queue.Dequeue().ToString());
+                buff += ch;
+                if ((stack.Contains('-') || stack.Contains('+')) && (oper is '+' or '-'))
+                {
+                    operations.Add(stack.Pop().ToString());
+                }
+            }
+            else if (operators.Contains(ch))
+            {
+                operations.Add(buff);
+                buff = "";
+                if (oper is not null)
+                {
+                    if (oper is '/' or '*' or '^')
+                    {
+                        if (ch != '(')
+                        {
+                            operations.Add(oper.ToString());
+                        }
+                        else
+                        {
+                            stack.Push(oper);
+                        }
+                    }
+                    else
+                    {
+                        stack.Push(oper);
+                    }
+                } 
+                oper = ch;
+            }
+            else if (ch == '(')
+            {
+                stack.Push(oper);
+                stack1.Push(ch);
+                oper = ch;
             }
         }
-        else if (operators.Contains(ch))
+        else
         {
-            operations.Add(buff);
-            buff = "";
-            if (oper is not null)
+            if (char.IsDigit(ch))
             {
-                if (oper is '/' or '*' or '^')
+                buff += ch;
+                if ((stack1.Contains('-') || stack1.Contains('+')) && (oper is '+' or '-'))
                 {
-                    operations.Add(oper.ToString());
+                    operations.Add(stack1.Pop().ToString());
+                }
+            }
+            else if (operators.Contains(ch))
+            {
+                operations.Add(buff);
+                buff = "";
+                if (oper is not null && oper is not '(')
+                { 
+                    if (oper is '/' or '*' or '^')
+                    {
+                        if (ch != '(')
+                        {
+                            operations.Add(oper.ToString());
+                        }
+                        else
+                        {
+                            stack1.Push(oper);
+                        }
+                    }
+                    else
+                    {
+                        stack1.Push(oper);
+                    }
+                } 
+                oper = ch;
+            }
+            else
+            {
+                stack1.Push(oper);
+                oper = ch;
+            }
+            if (oper == ')')
+            {
+                operations.Add(buff);
+                buff = "";
+                if (ch != '/' && ch != '*')
+                {
+                    while (stack1.Count != 0)
+                    {
+                        operations.Add(stack1.Pop().ToString());
+                    }
+                    while (stack.Count != 0)
+                    {
+                        operations.Add(stack.Pop().ToString());
+                    }
+                    oper = ch;
                 }
                 else
                 {
-                    queue.Enqueue(oper);
+                    oper = ch;
+                    stack1.Push(oper);
                 }
             }
-            oper = ch;
         }
     }
 
@@ -44,53 +124,63 @@ if (buff != "")
     operations.Add(oper.ToString());
 }
 
-if (queue.Count == 1)
+if (stack.Count == 1)
 {
-    operations.Add(queue.Dequeue().ToString());
+    operations.Add(stack.Pop().ToString());
+}
+
+if (operations.Contains("(") || operations.Contains(")") )
+{
+    operations.Remove("(");
+    operations.Remove(")");
 }
 
 Console.WriteLine(string.Join(" ", operations));
 
 foreach (var element in operations)
 {
+    if (element == "")
+    {
+        continue;
+    }
     if (element != "+" && element != "-" && element != "/" && element != "*" && element != "^")
     {
         var db = Convert.ToDouble(element);
-        stack.Push(db);
+        queue.Enqueue(db);
     }
     else
     {
-        var num1 = stack.Pop();
-        var num2 = stack.Pop();
+        var num1 = queue.Dequeue();
+        var num2 = queue.Dequeue();
         if (element == "+")
         {
             var sum = num2 + num1;
-            stack.Push(sum);
+            queue.Enqueue(sum);
         }
 
         if (element == "-")
-        {
+        { 
             var minus = num2 - num1;
-            stack.Push(minus);
+            queue.Enqueue(minus);
         }
 
         if (element == "*")
         {
             var multiply = num2 * num1;
-            stack.Push(multiply);
+            queue.Enqueue(multiply);
         }
 
         if (element == "/")
         {
             var divide = num2 / num1;
-            stack.Push(divide);
+            queue.Enqueue(divide);
         }
         if (element == "^")
         {
             var expo = Math.Pow(num2, num1);
-            stack.Push(expo);
+            queue.Enqueue(expo);
         }
     }
 }
 
-Console.WriteLine(stack.Pop());
+Console.WriteLine(queue.Dequeue());
