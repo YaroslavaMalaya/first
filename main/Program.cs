@@ -1,9 +1,9 @@
 var operators = new char[] { '+', '-', '/', '*', '^', '(', ')' };
-main.Stack<double> stack = new main.Stack<double>();
-main.Stack<char?> stackOperators = new main.Stack<char?>();
-Queue<string> queue = new Queue<string>();
+var stack = new main.Stack<double>();
+var stackOperators = new main.Stack<char?>();
+var queue = new Queue<string>();
 
-bool check = false;
+var check = false;
 var buff = "";
 char? oper = null;
 
@@ -151,6 +151,6 @@ while (true)
     Console.WriteLine("RESULT:");
     Console.WriteLine(stack.Pop());
     buff = "";
-    // stack.Clear();
+    stack.Clear();
     queue.Clear();
 }

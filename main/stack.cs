@@ -10,34 +10,26 @@ public class Stack<T>
     {
         if (_pointer == _array.Length)
         {
-            // this code is raising an exception about reaching stack limit
             throw new Exception("Stack overflowed");
         }
 
-        _array[_pointer] = value;
-        _pointer++;
+        _array[_pointer++] = value;
     }
 
     public T Pop()
     {
-        var value = _array[_pointer--];
-        _pointer--;
-        // _array = _array.Where(e => e != value).ToArray();
-        return value;
+        return _array[--_pointer];
     }
     
-    public int Count
-    {
-        get { return _array.Length; }
-    }
-    
+    public int Count => _pointer;
+
     public bool Contains(T value)
     {
         return _array.Contains(value);
     }
 
-    /* public T Clear()
+    public void Clear()
     {
-        return _array.Clear();
-    } */
+        Array.Clear(_array);
+    }
 }
