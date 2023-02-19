@@ -1,11 +1,11 @@
 ﻿Console.WriteLine("Enter an example for calculation:");
 var variable = Console.ReadLine();
 var operators = new char[] { '+', '-', '/', '*', '^', '(', ')' };
-Stack<double> stack = new Stack<double>();
-Stack<char?> stackOperators = new Stack<char?>();
+main.Stack<double> stack = new main.Stack<double>();
+main.Stack<char?> stackOperators = new main.Stack<char?>();
 Queue<string> queue = new Queue<string>();
-bool check = false;
 
+bool check = false;
 var buff = "";
 char? oper = null;
 
@@ -76,8 +76,10 @@ while (stackOperators.Count > 0)
 {
     queue.Enqueue(stackOperators.Pop().ToString());
 }
+
 Console.WriteLine("RPL:");
 Console.WriteLine(string.Join(" ", queue));
+
 foreach (var element in queue)
 {
     if (element != "")
@@ -126,5 +128,6 @@ foreach (var element in queue)
         continue;
     }
 }
+
 Console.WriteLine("RESULT:");
 Console.WriteLine(stack.Pop());

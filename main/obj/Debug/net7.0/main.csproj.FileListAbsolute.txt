@@ -1,0 +1,11 @@
+/Users/Yarrochka/Мої файли/Study/IT 3/first/main/bin/Debug/net7.0/main
+/Users/Yarrochka/Мої файли/Study/IT 3/first/main/bin/Debug/net7.0/main.dll
+/Users/Yarrochka/Мої файли/Study/IT 3/first/main/bin/Debug/net7.0/main.pdb
+/Users/Yarrochka/Мої файли/Study/IT 3/first/main/obj/Debug/net7.0/main.csproj.AssemblyReference.cache
+/Users/Yarrochka/Мої файли/Study/IT 3/first/main/obj/Debug/net7.0/main.GeneratedMSBuildEditorConfig.editorconfig
+/Users/Yarrochka/Мої файли/Study/IT 3/first/main/obj/Debug/net7.0/main.AssemblyInfoInputs.cache
+/Users/Yarrochka/Мої файли/Study/IT 3/first/main/obj/Debug/net7.0/main.AssemblyInfo.cs
+/Users/Yarrochka/Мої файли/Study/IT 3/first/main/obj/Debug/net7.0/main.csproj.CoreCompileInputs.cache
+/Users/Yarrochka/Мої файли/Study/IT 3/first/main/obj/Debug/net7.0/main.dll
+/Users/Yarrochka/Мої файли/Study/IT 3/first/main/obj/Debug/net7.0/refint/main.dll
+/Users/Yarrochka/Мої файли/Study/IT 3/first/main/obj/Debug/net7.0/main.pdb
