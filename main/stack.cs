@@ -35,4 +35,9 @@ public class Stack<T>
     {
         return _array.Contains(value);
     }
+
+    /* public T Clear()
+    {
+        return _array.Clear();
+    } */
 }

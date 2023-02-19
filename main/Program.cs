@@ -1,6 +1,6 @@
 var operators = new char[] { '+', '-', '/', '*', '^', '(', ')' };
-Stack<double> stack = new Stack<double>();
-Stack<char?> stackOperators = new Stack<char?>();
+main.Stack<double> stack = new main.Stack<double>();
+main.Stack<char?> stackOperators = new main.Stack<char?>();
 Queue<string> queue = new Queue<string>();
 
 bool check = false;
@@ -151,6 +151,6 @@ while (true)
     Console.WriteLine("RESULT:");
     Console.WriteLine(stack.Pop());
     buff = "";
-    stack.Clear();
+    // stack.Clear();
     queue.Clear();
 }
