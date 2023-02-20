@@ -1,7 +1,7 @@
 var operators = new char[] { '+', '-', '/', '*', '^', '(', ')' };
 var stack = new main.Stack<double>();
 var stackOperators = new main.Stack<char?>();
-var queue = new Queue<string>();
+var queue = new main.Queue<string>();
 
 var check = false;
 var buff = "";
@@ -102,6 +102,7 @@ while (true)
 
     Console.WriteLine("RPL:");
     Console.WriteLine(string.Join(" ", queue));
+
     foreach (var element in queue)
     {
         if (element != "")
@@ -115,6 +116,7 @@ while (true)
             {
                 var num1 = stack.Pop();
                 var num2 = stack.Pop();
+                
                 if (element == "+")
                 {
                     var sum = num2 + num1;
@@ -150,6 +152,7 @@ while (true)
 
     Console.WriteLine("RESULT:");
     Console.WriteLine(stack.Pop());
+    
     buff = "";
     stack.Clear();
     queue.Clear();
