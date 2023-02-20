@@ -39,7 +39,8 @@ namespace main
 
         public void Clear()
         {
-            Array.Clear(_array);
+            Array.Clear(_array, 0, _pointer);
+            _pointer = 0;
         }
 
         public IEnumerator<T> GetEnumerator()
