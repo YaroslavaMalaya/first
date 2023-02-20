@@ -14,7 +14,7 @@ while (true)
     if (variable != null)
         foreach (var ch in variable)
         {
-            if (char.IsDigit(ch))
+            if ((char.IsDigit(ch)) || char.IsLetter(ch))
             {
                 buff += ch;
             }
@@ -107,7 +107,36 @@ while (true)
     {
         if (element != "")
         {
-            if (element != "+" && element != "-" && element != "/" && element != "*" && element != "^")
+            if (element.Contains("sin"))
+            {
+                string[] parts = element.Split("n");
+                var degrees = Convert.ToDouble(parts[1]);
+                var radians = (degrees * Math.PI) / 180; 
+                stack.Push(Math.Sin(radians));
+                
+            }
+            else if (element.Contains("cos"))
+            {
+                string[] parts = element.Split("s");
+                var degrees = Convert.ToDouble(parts[1]);
+                var radians = (degrees * Math.PI) / 180;
+                stack.Push(Math.Cos(radians));
+            }
+            else if (element.Contains("tan"))
+            {
+                string[] parts = element.Split("n");
+                var degrees = Convert.ToDouble(parts[1]);
+                var radians = (degrees * Math.PI) / 180;
+                stack.Push(Math.Tan(radians));
+            }
+            else if (element.Contains("ctg"))
+            {
+                string[] parts = element.Split("g");
+                var degrees = Convert.ToDouble(parts[1]);
+                var radians = (degrees * Math.PI) / 180;
+                stack.Push(1/Math.Tan(radians));
+            }
+            else if (element != "+" && element != "-" && element != "/" && element != "*" && element != "^")
             {
                 var db = Convert.ToDouble(element);
                 stack.Push(db);
@@ -116,35 +145,23 @@ while (true)
             {
                 var num1 = stack.Pop();
                 var num2 = stack.Pop();
-                
-                if (element == "+")
+                switch (element)
                 {
-                    var sum = num2 + num1;
-                    stack.Push(sum);
-                }
-
-                if (element == "-")
-                {
-                    var minus = num2 - num1;
-                    stack.Push(minus);
-                }
-
-                if (element == "*")
-                {
-                    var multiply = num2 * num1;
-                    stack.Push(multiply);
-                }
-
-                if (element == "/")
-                {
-                    var divide = num2 / num1;
-                    stack.Push(divide);
-                }
-
-                if (element == "^")
-                {
-                    var expo = Math.Pow(num2, num1);
-                    stack.Push(expo);
+                    case "+":
+                        stack.Push(num2 + num1);
+                        break;
+                    case "-":
+                        stack.Push(num2 - num1);
+                        break;
+                    case "*":
+                        stack.Push(num2 * num1);
+                        break;
+                    case "/":
+                        stack.Push(num2 / num1);
+                        break;
+                    case "^":
+                        stack.Push(Math.Pow(num2, num1));
+                        break;
                 }
             }
         }
