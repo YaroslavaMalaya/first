@@ -1,37 +1,39 @@
-namespace main
+namespace main;
+
+public class Stack<T>
 {
-    public class Stack<T>
+    private const int Capacity = 50;
+    private T[] _array = new T[Capacity];
+    private int _pointer;
+
+    public void Push(T value)
     {
-        private const int Capacity = 100;
-        private T[] _array = new T[Capacity];
-        private int _pointer;
-
-        public void Push(T value)
+        if (_pointer == _array.Length)
         {
-            if (_pointer == _array.Length)
-            {
-                throw new Exception("Stack overflowed");
-            }
-
-            _array[_pointer++] = value;
+            throw new Exception("Stack overflowed");
         }
 
-        public T Pop()
-        {
-            return _array[--_pointer];
-        }
+        _array[_pointer++] = value;
+    }
 
-        public int Count => _pointer;
-
-        public bool Contains(T value)
+    public T Pop()
+    {
+        if (_pointer == 0)
         {
-            return _array.Contains(value);
+            return default;
         }
+        return _array[--_pointer];
+    }
+    
+    public int Count => _pointer;
 
-        public void Clear()
-        {
-            Array.Clear(_array);
-            _pointer = 0;
-        }
+    public bool Contains(T value)
+    {
+        return _array.Contains(value);
+    }
+
+    public void Clear()
+    {
+        Array.Clear(_array);
     }
 }
