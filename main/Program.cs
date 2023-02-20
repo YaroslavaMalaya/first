@@ -1,7 +1,7 @@
 var operators = new char[] { '+', '-', '/', '*', '^', '(', ')' };
 var stack = new main.Stack<double>();
 var stackOperators = new main.Stack<char?>();
-var queue = new Queue<string>();
+var queue = new main.Queue<string>();
 
 var check = false;
 var buff = "";

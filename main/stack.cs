@@ -18,6 +18,10 @@ public class Stack<T>
 
     public T Pop()
     {
+        if (_pointer == 0)
+        {
+            return default;
+        }
         return _array[--_pointer];
     }
     
